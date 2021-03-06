@@ -189,7 +189,7 @@ namespace Miniblog.Core.Services
         {
             this.ValidateUser(username, password);
 
-            var request = this.context.HttpContext.Request;
+            var request = this.context.HttpContext!.Request;
             var url = $"{request.Scheme}://{request.Host}";
 
             return Task.FromResult(
@@ -221,7 +221,7 @@ namespace Miniblog.Core.Services
 
         private Post ToMetaWebLogPost(Models.Post post)
         {
-            var request = this.context.HttpContext.Request;
+            var request = this.context.HttpContext!.Request;
             var url = $"{request.Scheme}://{request.Host}";
 
             return new Post
@@ -247,7 +247,7 @@ namespace Miniblog.Core.Services
             var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
             identity.AddClaim(new Claim(ClaimTypes.Name, username));
 
-            this.context.HttpContext.User = new ClaimsPrincipal(identity);
+            this.context.HttpContext!.User = new ClaimsPrincipal(identity);
         }
     }
 }
